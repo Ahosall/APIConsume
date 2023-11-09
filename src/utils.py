@@ -20,4 +20,4 @@ def request(method, url, data = False):
       return meth(url, body)
     return meth(url)
   except ConnectionError:
-    return 500
+    return None

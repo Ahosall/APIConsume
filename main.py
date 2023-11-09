@@ -24,12 +24,13 @@ def main():
           else:
             res = utils.request(method, url, (dtType, data))
             if res == None:
-               ErrorPage = layouts.Error('Failed to connect to Host!')
-            elif res.status_code == 200 or res.status_code == 201:
-               ResponsePage = layouts.Response(json.dumps(res.json(), indent=4))
+               ErrorPage = layouts.Error('Host or connection error.!')
             else:
-               ResponsePage = layouts.Response(res.text)
-            HomePage.hide()
+               if res.status_code == 200 or res.status_code == 201:
+                  ResponsePage = layouts.Response(json.dumps(res.json(), indent=4))
+               else:
+                  ResponsePage = layouts.Response(res.text)
+               HomePage.hide()
           
     if 'ErrorPage' in locals() and window == ErrorPage:
        if event == 'btnOk':
